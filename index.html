@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEEPIKA V — Designer • Editor • Animator</title>
+  <meta name="description" content="Official portfolio of Deepika V — Visual Designer, Video Editor & Motion Animator." />
+  <!-- Google Fonts: Pixelify Sans, Silkscreen, VT323, Josefin Sans, Quicksand, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=VT323&family=Josefin+Sans:wght@400;600;700&family=Quicksand:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="brutalist-theme hardcore-pixel">
+
+  <!-- Retro CRT Scanline & Pixel Grid Overlays -->
+  <div class="crt-scanline-beam" aria-hidden="true"></div>
+
+  <!-- SVG Filter for Real-time 8-Bit Pixelation -->
+  <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+    <defs>
+      <filter id="retro-pixelate" x="0%" y="0%" width="100%" height="100%">
+        <feFlood x="2" y="2" height="4" width="4"/>
+        <feComposite width="8" height="8"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="3"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Top Scroll Progress Indicator Bar -->
+  <div class="scroll-progress-bar" id="scroll-progress">
+    <div class="playhead-marker">◆</div>
+  </div>
+
+  <!-- Minimal Cursor Canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Floating Vertical Premiere/AE Timeline Scrubber HUD -->
+  <aside class="timeline-hud-sidebar" id="timeline-hud">
+    <div class="hud-track-line">
+      <div class="hud-playhead-needle" id="hud-needle">◆</div>
+    </div>
+    <div class="hud-keyframe-list">
+      <a href="#hero-zoom-container" class="hud-keyframe active" data-sec="hero"><span class="kf-marker">◆</span><span class="kf-label">HERO</span></a>
+      <a href="#about" class="hud-keyframe" data-sec="about"><span class="kf-marker">◆</span><span class="kf-label">01 LORE</span></a>
+      <a href="#work" class="hud-keyframe" data-sec="work"><span class="kf-marker">◆</span><span class="kf-label">02 VAULT</span></a>
+      <a href="#skills" class="hud-keyframe" data-sec="skills"><span class="kf-marker">◆</span><span class="kf-label">03 ARSENAL</span></a>
+      <a href="#reviews" class="hud-keyframe" data-sec="reviews"><span class="kf-marker">◆</span><span class="kf-label">04 REVIEWS</span></a>
+      <a href="#contact" class="hud-keyframe" data-sec="contact"><span class="kf-marker">◆</span><span class="kf-label">05 PING</span></a>
+    </div>
+  </aside>
+
+  <!-- Clean Top Bar with Top-Left Hamburger Menu -->
+  <header class="brutalist-navbar">
+    <div class="nav-left">
+      <button class="burger-btn" id="burger-btn" aria-label="Open Navigation Menu">
+        <div class="burger-icon">
+          <span class="b-line line-1"></span>
+          <span class="b-line line-2"></span>
+          <span class="b-line line-3"></span>
+        </div>
+        <span class="burger-label">MENU</span>
+      </button>
+    </div>
+
+    <div class="nav-controls">
+      <div class="live-frame-pill" id="live-frame-pill">
+        <span class="rec-dot">●</span>
+        <span id="frame-counter-txt">FRAME: 0001</span>
+      </div>
+      <button class="sound-toggle-btn" id="sound-btn" title="Toggle audio feedback">
+        <span class="btn-text">SFX: ON</span>
+      </button>
+      <a href="#contact" class="nav-btn-ping">PING ME ↗</a>
+    </div>
+  </header>
+
+  <!-- Full-Screen Interactive Menu Overlay (100vw x 100vh Shutter Animation) -->
+  <div class="full-screen-menu-overlay" id="burger-drawer">
+    <div class="menu-shutter shutter-left"></div>
+    <div class="menu-shutter shutter-right"></div>
+
+    <div class="full-menu-container">
+      <div class="menu-header">
+        <div class="menu-brand-tag">
+          <span class="brand-logo-box">DV</span>
+          <span class="brand-title">DEEPIKA V // DIRECTORY COMMAND</span>
+        </div>
+        <div class="menu-telemetry">
+          <span class="telemetry-badge"><span class="rec-dot">●</span> LIVE PLAYHEAD</span>
+          <span class="telemetry-time" id="menu-timecode">00:00:14:18</span>
+        </div>
+        <button class="menu-close-btn" id="drawer-close-btn" aria-label="Close Menu">
+          <span class="close-txt">[ ESC / CLOSE &times; ]</span>
+        </button>
+      </div>
+
+      <div class="menu-body-grid">
+        <nav class="menu-nav-links">
+          <a href="#about" class="menu-nav-row drawer-nav-item">
+            <span class="row-num">01</span>
+            <div class="row-text">
+              <span class="row-title">CREATIVE LORE <span class="hint-badge pr">Pr</span></span>
+              <span class="row-sub">Background & Editing Philosophy</span>
+            </div>
+            <span class="row-arrow">↗</span>
+          </a>
+          <a href="#work" class="menu-nav-row drawer-nav-item">
+            <span class="row-num">02</span>
+            <div class="row-text">
+              <span class="row-title">VAULT WORKS <span class="hint-badge ae">Ae</span></span>
+              <span class="row-sub">Horizontal Film Strip Showreel</span>
+            </div>
+            <span class="row-arrow">↗</span>
+          </a>
+          <a href="#skills" class="menu-nav-row drawer-nav-item">
+            <span class="row-num">03</span>
+            <div class="row-text">
+              <span class="row-title">ARSENAL <span class="hint-badge fig">Fig</span></span>
+              <span class="row-sub">Software Stack & Proficiency</span>
+            </div>
+            <span class="row-arrow">↗</span>
+          </a>
+          <a href="#reviews" class="menu-nav-row drawer-nav-item">
+            <span class="row-num">04</span>
+            <div class="row-text">
+              <span class="row-title">CLIENT REVIEWS <span class="hint-badge 3d">3D</span></span>
+              <span class="row-sub">Testimonials & Client Feedback</span>
+            </div>
+            <span class="row-arrow">↗</span>
+          </a>
+          <a href="#contact" class="menu-nav-row drawer-nav-item">
+            <span class="row-num">05</span>
+            <div class="row-text">
+              <span class="row-title">INITIATE PING <span class="row-tag-yellow">CONTACT</span></span>
+              <span class="row-sub">Start Project Collaboration</span>
+            </div>
+            <span class="row-arrow">↗</span>
+          </a>
+        </nav>
+      </div>
+
+      <div class="menu-footer">
+        <div class="menu-socials">
+          <a href="#" class="social-link">INSTAGRAM ↗</a>
+          <a href="#" class="social-link">YOUTUBE ↗</a>
+        </div>
+        <div class="menu-lore-note">
+          DEEPIKA V • VISUAL DESIGNER • EDITING & MOTION
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section with Scroll-Driven Zoom Engine -->
+  <section class="hero-section" id="hero-zoom-container">
+
+    <!-- Local BG Video (drop hero-bg.mp4 in project folder) -->
+    <div class="hero-yt-bg">
+      <video
+        id="hero-bg-video"
+        class="hero-bg-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        src="hero-bg.mp4"
+      ></video>
+    </div>
+    <!-- Dark overlay for text legibility -->
+    <div class="hero-yt-overlay"></div>
+
+    <div class="hero-header-block">
+      <div class="hero-meta-tag">
+        <span class="meta-dot"></span> VISUAL DESIGNER • VIDEO EDITOR • MOTION ANIMATOR
+      </div>
+
+      <!-- Ultra-Large Zoomable Branding Display in One Single Line -->
+      <div class="branding-hero-wrap" id="zoom-branding">
+        <div class="branding-single-line">
+          <span class="brand-name" id="brand-first">DEEPIKA</span>
+          <span class="brand-v-wrap" id="brand-last">
+            <span class="v-letter">V</span><span class="dot-accent">.</span>
+          </span>
+        </div>
+      </div>
+
+      <p class="hero-subtitle">
+        Crafting high-impact motion graphics, frame-accurate video edits, and bold brand identities with surgical precision and creative edge.
+      </p>
+
+      <div class="hero-cta-row">
+        <a href="#work" class="brutalist-btn btn-yellow">
+          <span>EXPLORE VAULT ↗</span>
+        </a>
+        <a href="#contact" class="brutalist-btn btn-outline">
+          <span>LET'S COLLABORATE</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee Banner -->
+  <div class="brutalist-marquee">
+    <div class="marquee-content">
+      <span>MOTION GRAPHICS</span> ✦ <span>VIDEO EDITING</span> ✦ <span>3D ANIMATION</span> ✦ <span>BRAND IDENTITY</span> ✦ <span>COLOR GRADING</span> ✦ <span>VFX COMPOSITING</span> ✦
+      <span>MOTION GRAPHICS</span> ✦ <span>VIDEO EDITING</span> ✦ <span>3D ANIMATION</span> ✦ <span>BRAND IDENTITY</span> ✦ <span>COLOR GRADING</span> ✦ <span>VFX COMPOSITING</span> ✦
+    </div>
+  </div>
+
+  <!-- 01 // Artistic Lore & Master Motion Atelier -->
+  <section id="about" class="section-wrapper studio-about-section">
+    <div class="section-header reveal-item">
+      <span class="section-num">01 // CREATIVE LORE</span>
+      <h2 class="section-heading">BEHIND THE TIMELINE</h2>
+    </div>
+
+    <!-- Unified Studio Editorial Spread -->
+    <div class="studio-lore-spread">
+      
+      <!-- LEFT: Sculptural Motion Portrait & Audio Telemetry Deck -->
+      <div class="studio-portrait-deck reveal-item">
+        <div class="portrait-ambient-glow"></div>
+        
+        <div class="portrait-stage" id="avatar-stage">
+          <div class="portrait-sculpture-card" id="avatar-tilt-card">
+            
+            <!-- Monitor Header Bar -->
+            <div class="portrait-hud-header">
+              <div class="hud-live-tag">
+                <span class="rec-dot-live">●</span>
+                <span class="hud-tag-txt">LIVE WORKSPACE</span>
+              </div>
+              <span class="hud-res-badge">4K • 60 FPS</span>
+            </div>
+
+            <!-- Main Artwork Frame with Optical Reticle -->
+            <div class="portrait-artwork-frame" id="avatar-img-wrap">
+              <img src="avatar.png" alt="Deepika V — Visual Designer, Video Editor &amp; Motion Animator" class="portrait-img" id="avatar-graphic-img" />
+              
+              <!-- Optical Crop Marks -->
+              <div class="optical-safe-guides" aria-hidden="true">
+                <span class="crop-mark tl"></span>
+                <span class="crop-mark tr"></span>
+                <span class="crop-mark bl"></span>
+                <span class="crop-mark br"></span>
+                <span class="guide-crosshair">+</span>
+              </div>
+
+              <!-- Headphone Audio Wave Kinetic Emitter -->
+              <div class="headphone-audio-emitter" id="headphone-emitter">
+                <span class="audio-arc arc-1"></span>
+                <span class="audio-arc arc-2"></span>
+                <span class="audio-arc arc-3"></span>
+              </div>
+
+              <!-- Dynamic cursor sheen -->
+              <div class="portrait-light-sheen" id="avatar-light-sheen"></div>
+            </div>
+
+            <!-- Integrated Audio Spectrum & Beat Telemetry Console (Replaces Filter Buttons!) -->
+            <div class="portrait-telemetry-dock">
+              <div class="telemetry-eq-row">
+                <div class="eq-spectrum-bars" id="audio-eq-bars">
+                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+                </div>
+                <div class="telemetry-bpm-tag">
+                  <span class="bpm-dot"></span> 128 BPM • BEAT-SYNCED
+                </div>
+              </div>
+              <div class="telemetry-info-row">
+                <span class="telemetry-tc" id="live-timecode-display">TC 00:01:24:18</span>
+                <span class="telemetry-tool-stack">PR • AE • FIGMA</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="portrait-caption-footnote">
+          <span>✦ DEEPIKA V // MOTION ATELIER</span>
+          <span class="footnote-tag">[ 3D SPATIAL DEPTH ]</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Editorial Manifesto, Narrative & Interactive Timeline Tracks -->
+      <div class="studio-narrative-deck reveal-item">
+        
+        <!-- Large High-Impact Typography Manifesto Callout -->
+        <div class="manifesto-callout-block">
+          <div class="manifesto-meta-pill">
+            <span class="meta-dot"></span> ART DIRECTION &amp; EDITING PHILOSOPHY
+          </div>
+          <h3 class="manifesto-headline">
+            "I shape raw frames and vectors into <span class="highlight">rhythmic visual motion</span>, frame-accurate pacing, and <span class="highlight">sculptural brand identities</span>."
+          </h3>
+        </div>
+
+        <!-- Narrative Body Copy -->
+        <div class="studio-bio-copy">
+          <p>
+            I operate at the intersection of frame-accurate video editing, After Effects motion dynamics, and clean graphic design systems. My focus is delivering sleek, high-energy visual narratives that capture audience attention and communicate brand vision clearly.
+          </p>
+          <p>
+            From cutting commercial reels with surgical tempo in Premiere Pro to animating 3D logo loops and designing vector brand assets in Figma, every project is crafted with high aesthetic fidelity and temporal precision.
+          </p>
+        </div>
+
+        <!-- The 3 Core Masteries as Interactive Timeline Tracks -->
+        <div class="timeline-tracks-stack">
+          <div class="timeline-track-item">
+            <div class="track-header">
+              <span class="track-chip pr">Pr</span>
+              <span class="track-name">TRACK 01 // FRAME-ACCURATE TEMPO</span>
+              <span class="track-time">[ 00:00:01 ]</span>
+            </div>
+            <p class="track-desc">Calibrated cut frequency, speed-ramping, velocity curves, and rhythmic audio beat synchronization.</p>
+          </div>
+
+          <div class="timeline-track-item">
+            <div class="track-header">
+              <span class="track-chip ae">Ae</span>
+              <span class="track-name">TRACK 02 // DIMENSIONAL MOTION GRAPHICS</span>
+              <span class="track-time">[ 00:00:02 ]</span>
+            </div>
+            <p class="track-desc">3D camera tracking, spatial keyframe dynamics, kinetic typography, and Octane/Blender render loops.</p>
+          </div>
+
+          <div class="timeline-track-item">
+            <div class="track-header">
+              <span class="track-chip fig">Fig</span>
+              <span class="track-name">TRACK 03 // SCULPTURAL IDENTITY SYSTEMS</span>
+              <span class="track-time">[ 00:00:03 ]</span>
+            </div>
+            <p class="track-desc">High-contrast vector frameworks, responsive design systems, and cohesive brand identity asset suites.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Studio Telemetry Metrics Strip Across the Bottom -->
+    <div class="studio-metrics-strip reveal-item">
+      <div class="metric-block">
+        <span class="metric-num">05<span class="txt-yellow">+</span></span>
+        <span class="metric-lbl">YEARS IN THE TIMELINE</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-num">60<span class="txt-yellow">FPS</span></span>
+        <span class="metric-lbl">MOTION CADENCE</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-num">4K<span class="txt-yellow">HD</span></span>
+        <span class="metric-lbl">PRORES COMPOSITING</span>
+      </div>
+      <div class="metric-block">
+        <span class="metric-num">100<span class="txt-yellow">%</span></span>
+        <span class="metric-lbl">FRAME-ACCURATE PRECISION</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 // Portfolio Works (Horizontal Film Strip Track) -->
+  <section id="work" class="section-wrapper work-section">
+    <div class="section-header reveal-item">
+      <span class="section-tag">02 // PORTFOLIO (INFINITE FILM REEL)</span>
+      <h2 class="section-heading">SELECTED WORKS</h2>
+    </div>
+
+    <!-- Sticky Horizontal Film Strip Scroll Container -->
+    <div class="horizontal-film-track-container" id="film-track-container">
+      <div class="film-track-inner" id="film-track-inner">
+
+        <!-- Project 1: Video (Cyber Commercial Reel) -->
+        <div class="project-card brutalist-card film-card" data-category="video" data-id="p1">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge pr">Pr</span>
+              <span class="bar-title">CYBER_COMMERCIAL_REEL.MP4</span>
+            </div>
+            <span class="bar-badge badge-yellow">4K • BEAT-SYNC</span>
+          </div>
+          <div class="card-media-box">
+            <!-- Cinematic Video Slate Visualizer -->
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <defs>
+                <linearGradient id="grad-video" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0a0a10" />
+                  <stop offset="100%" stop-color="#141420" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grad-video)"/>
+              <!-- Waveform Track -->
+              <path d="M 30 150 Q 80 80, 130 150 T 230 150 T 330 150 T 370 140" fill="none" stroke="rgba(216, 255, 0, 0.3)" stroke-width="2"/>
+              <path d="M 30 145 Q 90 60, 150 145 T 250 145 T 370 135" fill="none" stroke="#d8ff00" stroke-width="2.5"/>
+              <!-- Play Head Circle Pulse -->
+              <circle cx="200" cy="115" r="38" fill="none" stroke="#d8ff00" stroke-width="2"/>
+              <polygon points="193,101 217,115 193,129" fill="#ffffff"/>
+              <!-- Video HUD Specs -->
+              <text x="35" y="42" fill="#888888" font-family="'JetBrains Mono'" font-size="10">FPS: 60.00 • AUDIO: 48kHz 24-BIT</text>
+              <text x="365" y="42" text-anchor="end" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="10">TC 00:01:24:18</text>
+              <text x="200" y="195" text-anchor="middle" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ COMMERCIAL REEL // SPEED-RAMP ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+            <div class="audio-viz-indicator">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">Premiere Pro</span>
+              <span class="tag-item">Color Grade</span>
+              <span class="tag-item">Beat Sync</span>
+            </div>
+            <h3 class="project-title">Cyberpunk Commercial Cut</h3>
+            <p class="project-desc">High-tempo commercial edit with surgical beat-syncing, custom color grading, and dynamic speed ramping.</p>
+          </div>
+        </div>
+
+        <!-- Project 2: Motion (3D Chrome Logo Loop) -->
+        <div class="project-card brutalist-card film-card" data-category="animation" data-id="p2">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge ae">Ae</span>
+              <span class="bar-title">3D_CHROME_LOGO_LOOP.AEP</span>
+            </div>
+            <span class="bar-badge badge-yellow">OCTANE 3D • 60FPS</span>
+          </div>
+          <div class="card-media-box">
+            <!-- 3D Kinetic Isometric Wireframe Slate -->
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <defs>
+                <linearGradient id="grad-ae" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0e0a16" />
+                  <stop offset="100%" stop-color="#181224" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grad-ae)"/>
+              <!-- Spatial Orbit Grid -->
+              <ellipse cx="200" cy="120" rx="120" ry="48" fill="none" stroke="rgba(153, 85, 255, 0.4)" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <ellipse cx="200" cy="120" rx="80" ry="80" fill="none" stroke="rgba(216, 255, 0, 0.25)" stroke-width="1"/>
+              <!-- 3D Rotating Isometric Box Keyframe -->
+              <g class="svg-spin" transform-origin="200 120">
+                <polygon points="200,85 245,108 200,131 155,108" fill="none" stroke="#d8ff00" stroke-width="2"/>
+                <polygon points="155,108 200,131 200,165 155,142" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+                <polygon points="245,108 200,131 200,165 245,142" fill="none" stroke="#9955ff" stroke-width="2"/>
+              </g>
+              <text x="35" y="42" fill="#888888" font-family="'JetBrains Mono'" font-size="10">BLENDER 3D • SPATIAL AUDIO</text>
+              <text x="365" y="42" text-anchor="end" fill="#9955ff" font-family="'JetBrains Mono'" font-size="10">◆ KEYFRAME LOOP</text>
+              <text x="200" y="200" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ KINETIC 3D LOGO IDENT ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">After Effects</span>
+              <span class="tag-item">Blender 3D</span>
+              <span class="tag-item">Logo Ident</span>
+            </div>
+            <h3 class="project-title">Neon 3D Title &amp; Logo Ident</h3>
+            <p class="project-desc">Kinetic 3D chrome identity loop engineered in Blender and composited in After Effects with spatial audio sync.</p>
+          </div>
+        </div>
+
+        <!-- Project 3: Design (Acid Brand System) -->
+        <div class="project-card brutalist-card film-card" data-category="design" data-id="p3">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge fig">Fig</span>
+              <span class="bar-title">ACID_BRAND_SYSTEM.FIG</span>
+            </div>
+            <span class="bar-badge badge-yellow">VECTOR SUITE</span>
+          </div>
+          <div class="card-media-box">
+            <!-- Typographic Layout Slate -->
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <defs>
+                <linearGradient id="grad-brand" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#080c09" />
+                  <stop offset="100%" stop-color="#101812" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grad-brand)"/>
+              <!-- Typographic Arc Ribbon -->
+              <path d="M 40 160 Q 200 40 360 160" fill="none" stroke="#d8ff00" stroke-width="3"/>
+              <text x="200" y="105" text-anchor="middle" fill="#ffffff" font-family="'Josefin Sans'" font-weight="700" font-size="24" letter-spacing="2">ACID SPECTRUM</text>
+              <!-- Color Swatch Blocks -->
+              <rect x="130" y="130" width="30" height="12" fill="#d8ff00" stroke="#000" stroke-width="1"/>
+              <rect x="165" y="130" width="30" height="12" fill="#ffffff" stroke="#000" stroke-width="1"/>
+              <rect x="200" y="130" width="30" height="12" fill="#9955ff" stroke="#000" stroke-width="1"/>
+              <rect x="235" y="130" width="30" height="12" fill="#00a8ff" stroke="#000" stroke-width="1"/>
+              <text x="35" y="42" fill="#888888" font-family="'JetBrains Mono'" font-size="10">DESIGN SYSTEM • FIGMA</text>
+              <text x="365" y="42" text-anchor="end" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="10">HEX #D8FF00</text>
+              <text x="200" y="195" text-anchor="middle" fill="#888888" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ FESTIVAL IDENTITY &amp; MERCH ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">Figma</span>
+              <span class="tag-item">Photoshop</span>
+              <span class="tag-item">Typography</span>
+            </div>
+            <h3 class="project-title">Acid Festival Visual Identity</h3>
+            <p class="project-desc">Holistic brand design system spanning modular vector typography, dynamic stage visuals, and print merchandising.</p>
+          </div>
+        </div>
+
+        <!-- Project 4: Video (Esports Tournament Promo) -->
+        <div class="project-card brutalist-card film-card" data-category="video" data-id="p4">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge ae">Ae</span>
+              <span class="bar-title">ESPORTS_MONTAGE.MP4</span>
+            </div>
+            <span class="bar-badge badge-yellow">VFX CAMERA TRACK</span>
+          </div>
+          <div class="card-media-box">
+            <!-- VFX Tracking HUD Slate -->
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <defs>
+                <linearGradient id="grad-esports" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0c0a0c" />
+                  <stop offset="100%" stop-color="#1c101c" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grad-esports)"/>
+              <!-- Camera Tracking Crosshairs -->
+              <line x1="40" y1="120" x2="360" y2="120" stroke="rgba(216, 255, 0, 0.4)" stroke-width="1.5" stroke-dasharray="8 6"/>
+              <line x1="200" y1="30" x2="200" y2="210" stroke="rgba(216, 255, 0, 0.4)" stroke-width="1.5" stroke-dasharray="8 6"/>
+              <!-- Target Lock Box -->
+              <rect x="160" y="80" width="80" height="80" fill="none" stroke="#d8ff00" stroke-width="2"/>
+              <circle cx="200" cy="120" r="16" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <text x="35" y="42" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="10">LOCK [X:1080 Y:1920]</text>
+              <text x="365" y="42" text-anchor="end" fill="#888888" font-family="'JetBrains Mono'" font-size="10">PEAK -0.1 dB</text>
+              <text x="200" y="195" text-anchor="middle" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ ESPORTS TOURNAMENT MONTAGE ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+            <div class="audio-viz-indicator">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">After Effects</span>
+              <span class="tag-item">VFX</span>
+              <span class="tag-item">Sound Layering</span>
+            </div>
+            <h3 class="project-title">Esports Tournament Promo Cut</h3>
+            <p class="project-desc">High-octane esports montage featuring 3D camera tracking, bass-responsive screen pumping, and custom SFX layering.</p>
+          </div>
+        </div>
+
+        <!-- CLONE SET FOR SEAMLESS INFINITE CAROUSEL LOOP -->
+        <!-- Project 1 Clone -->
+        <div class="project-card brutalist-card film-card" data-category="video" data-id="p1-clone">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge pr">Pr</span>
+              <span class="bar-title">CYBER_COMMERCIAL_REEL.MP4</span>
+            </div>
+            <span class="bar-badge badge-yellow">4K • BEAT-SYNC</span>
+          </div>
+          <div class="card-media-box">
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <rect width="100%" height="100%" fill="#0a0a10"/>
+              <path d="M 30 145 Q 90 60, 150 145 T 250 145 T 370 135" fill="none" stroke="#d8ff00" stroke-width="2.5"/>
+              <circle cx="200" cy="115" r="38" fill="none" stroke="#d8ff00" stroke-width="2"/>
+              <polygon points="193,101 217,115 193,129" fill="#ffffff"/>
+              <text x="200" y="195" text-anchor="middle" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ COMMERCIAL REEL // SPEED-RAMP ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">Premiere Pro</span>
+              <span class="tag-item">Color Grade</span>
+              <span class="tag-item">Beat Sync</span>
+            </div>
+            <h3 class="project-title">Cyberpunk Commercial Cut</h3>
+            <p class="project-desc">High-tempo commercial edit with surgical beat-syncing, custom color grading, and dynamic speed ramping.</p>
+          </div>
+        </div>
+
+        <!-- Project 2 Clone -->
+        <div class="project-card brutalist-card film-card" data-category="animation" data-id="p2-clone">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge ae">Ae</span>
+              <span class="bar-title">3D_CHROME_LOGO_LOOP.AEP</span>
+            </div>
+            <span class="bar-badge badge-yellow">OCTANE 3D • 60FPS</span>
+          </div>
+          <div class="card-media-box">
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <rect width="100%" height="100%" fill="#0e0a16"/>
+              <ellipse cx="200" cy="120" rx="120" ry="48" fill="none" stroke="rgba(153, 85, 255, 0.4)" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <g class="svg-spin" transform-origin="200 120">
+                <polygon points="200,85 245,108 200,131 155,108" fill="none" stroke="#d8ff00" stroke-width="2"/>
+                <polygon points="155,108 200,131 200,165 155,142" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+              </g>
+              <text x="200" y="200" text-anchor="middle" fill="#ffffff" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ KINETIC 3D LOGO IDENT ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">After Effects</span>
+              <span class="tag-item">Blender 3D</span>
+              <span class="tag-item">Logo Ident</span>
+            </div>
+            <h3 class="project-title">Neon 3D Title &amp; Logo Ident</h3>
+            <p class="project-desc">Kinetic 3D chrome identity loop engineered in Blender and composited in After Effects with spatial audio sync.</p>
+          </div>
+        </div>
+
+        <!-- Project 3 Clone -->
+        <div class="project-card brutalist-card film-card" data-category="design" data-id="p3-clone">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge fig">Fig</span>
+              <span class="bar-title">ACID_BRAND_SYSTEM.FIG</span>
+            </div>
+            <span class="bar-badge badge-yellow">VECTOR SUITE</span>
+          </div>
+          <div class="card-media-box">
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <rect width="100%" height="100%" fill="#080c09"/>
+              <path d="M 40 160 Q 200 40 360 160" fill="none" stroke="#d8ff00" stroke-width="3"/>
+              <text x="200" y="105" text-anchor="middle" fill="#ffffff" font-family="'Josefin Sans'" font-weight="700" font-size="24" letter-spacing="2">ACID SPECTRUM</text>
+              <rect x="130" y="130" width="30" height="12" fill="#d8ff00"/>
+              <rect x="165" y="130" width="30" height="12" fill="#ffffff"/>
+              <rect x="200" y="130" width="30" height="12" fill="#9955ff"/>
+              <text x="200" y="195" text-anchor="middle" fill="#888888" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ FESTIVAL IDENTITY &amp; MERCH ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">Figma</span>
+              <span class="tag-item">Photoshop</span>
+              <span class="tag-item">Typography</span>
+            </div>
+            <h3 class="project-title">Acid Festival Visual Identity</h3>
+            <p class="project-desc">Holistic brand design system spanning modular vector typography, dynamic stage visuals, and print merchandising.</p>
+          </div>
+        </div>
+
+        <!-- Project 4 Clone -->
+        <div class="project-card brutalist-card film-card" data-category="video" data-id="p4-clone">
+          <div class="card-top-bar">
+            <div class="bar-left">
+              <span class="hint-badge ae">Ae</span>
+              <span class="bar-title">ESPORTS_MONTAGE.MP4</span>
+            </div>
+            <span class="bar-badge badge-yellow">VFX CAMERA TRACK</span>
+          </div>
+          <div class="card-media-box">
+            <svg class="svg-media-placeholder" viewBox="0 0 400 240">
+              <rect width="100%" height="100%" fill="#0c0a0c"/>
+              <line x1="40" y1="120" x2="360" y2="120" stroke="rgba(216, 255, 0, 0.4)" stroke-width="1.5" stroke-dasharray="8 6"/>
+              <line x1="200" y1="30" x2="200" y2="210" stroke="rgba(216, 255, 0, 0.4)" stroke-width="1.5" stroke-dasharray="8 6"/>
+              <rect x="160" y="80" width="80" height="80" fill="none" stroke="#d8ff00" stroke-width="2"/>
+              <circle cx="200" cy="120" r="16" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <text x="200" y="195" text-anchor="middle" fill="#d8ff00" font-family="'JetBrains Mono'" font-size="11" letter-spacing="1">[ ESPORTS TOURNAMENT MONTAGE ]</text>
+            </svg>
+            <div class="card-hover-overlay">
+              <span class="overlay-text">INSPECT CASE STUDY ↗</span>
+            </div>
+            <div class="audio-viz-indicator">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="card-meta-body">
+            <div class="tag-row">
+              <span class="tag-item">After Effects</span>
+              <span class="tag-item">VFX</span>
+              <span class="tag-item">Sound Layering</span>
+            </div>
+            <h3 class="project-title">Esports Tournament Promo Cut</h3>
+            <p class="project-desc">High-octane esports montage featuring 3D camera tracking, bass-responsive screen pumping, and custom SFX layering.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Horizontal Reel Live Timeline Scrubber -->
+    <div class="reel-hud-scrubber" id="reel-hud-bar">
+      <div class="reel-scrub-info">
+        <span class="scrub-status"><span class="hint-badge pr">Pr</span> SCRUBBING REEL [ <span id="reel-time-code">00:01:24:00</span> ]</span>
+        <span class="scrub-percent" id="reel-percent-txt">0% COMPLETE</span>
+      </div>
+      <div class="reel-track-bar">
+        <div class="reel-track-fill" id="reel-fill-bar"></div>
+        <div class="reel-track-thumb" id="reel-thumb">◆</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 // Toolset Section -->
+  <section id="skills" class="section-wrapper">
+    <div class="section-header reveal-item">
+      <span class="section-num">03 // ARSENAL</span>
+      <h2 class="section-heading">CREATIVE TOOLSET</h2>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="skill-box brutalist-card reveal-item">
+        <div class="skill-head">
+          <div class="skill-title-grp">
+            <span class="hint-badge ae">Ae</span>
+            <span class="skill-name">After Effects</span>
+          </div>
+          <span class="skill-val">98%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 98%;"></div></div>
+        <p class="skill-info">Motion graphics, kinetic typography, VFX compositing, camera tracking.</p>
+      </div>
+
+      <div class="skill-box brutalist-card reveal-item">
+        <div class="skill-head">
+          <div class="skill-title-grp">
+            <span class="hint-badge pr">Pr</span>
+            <span class="skill-name">Premiere Pro</span>
+          </div>
+          <span class="skill-val">95%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
+        <p class="skill-info">Pacing, multi-cam editing, color grading, audio synchronization.</p>
+      </div>
+
+      <div class="skill-box brutalist-card reveal-item">
+        <div class="skill-head">
+          <div class="skill-title-grp">
+            <span class="hint-badge fig">Fig</span>
+            <span class="skill-name">Figma & Photoshop</span>
+          </div>
+          <span class="skill-val">92%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 92%;"></div></div>
+        <p class="skill-info">Graphic posters, visual layouts, thumbnails, brand asset kits.</p>
+      </div>
+
+      <div class="skill-box brutalist-card reveal-item">
+        <div class="skill-head">
+          <div class="skill-title-grp">
+            <span class="hint-badge 3d">3D</span>
+            <span class="skill-name">Blender & Cinema 4D</span>
+          </div>
+          <span class="skill-val">88%</span>
+        </div>
+        <div class="skill-bar"><div class="skill-fill" style="width: 88%;"></div></div>
+        <p class="skill-info">3D texturing, glass physics, lighting loops, motion renders.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 04 // Reviews Section -->
+  <section id="reviews" class="section-wrapper">
+    <div class="section-header reveal-item">
+      <span class="section-num">04 // REVIEWS</span>
+      <h2 class="section-heading">CLIENT FEEDBACK</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card brutalist-card reveal-item">
+        <p class="review-quote">"The launch video edit generated over 1.2M views in 48 hours. The audio sync and frame pacing were impeccable."</p>
+        <div class="review-author">— CREATIVE DIRECTOR, BRAND LABS</div>
+      </div>
+      <div class="review-card brutalist-card reveal-item">
+        <p class="review-quote">"Her motion design work gave our stream setup an elevated, high-end look. Fast turnaround and professional communication."</p>
+        <div class="review-author">— LEAD PRODUCER, MEDIA MEDIA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 // Contact Section -->
+  <section id="contact" class="section-wrapper">
+    <div class="section-header reveal-item">
+      <span class="section-num">05 // INQUIRIES</span>
+      <h2 class="section-heading">PING DEEPIKA V</h2>
+    </div>
+
+    <div class="contact-card brutalist-card reveal-item">
+      <div class="card-top-bar">
+        <span class="bar-title">INITIATE_MESSAGE.EXE</span>
+      </div>
+      <div class="contact-body">
+
+        <form id="contact-form" class="brutalist-form">
+          <div class="form-row">
+            <div class="field-group">
+              <label for="name">NAME / ORGANIZATION</label>
+              <input type="text" id="name" placeholder="e.g. Alex / Studio X" required />
+            </div>
+            <div class="field-group">
+              <label for="email">EMAIL ADDRESS</label>
+              <input type="email" id="email" placeholder="e.g. alex@studio.com" required />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="scope">PROJECT SCOPE</label>
+            <select id="scope">
+              <option value="video">[Pr] High-Energy Video Editing (Premiere Pro)</option>
+              <option value="motion">[Ae] Motion Design & 3D Ident (After Effects)</option>
+              <option value="brand">[Fig] Visual Design & Brand Kit (Figma)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="message">PROJECT DETAILS</label>
+            <textarea id="message" rows="4" placeholder="Brief description of goals & timeline..." required></textarea>
+          </div>
+
+          <button type="submit" class="brutalist-btn btn-yellow submit-btn">
+            <span>TRANSMIT INQUIRY ↗</span>
+          </button>
+        </form>
+
+        <div class="terminal-box" id="terminal-reply" style="display: none;">
+          <div>> MESSAGE SENT SUCCESSFULLY</div>
+          <div class="txt-yellow">> DEEPIKA V WILL RESPOND WITHIN 24 HOURS.</div>
+        </div>
+
+        <div class="social-row">
+          <a href="#" class="social-link">INSTAGRAM ↗</a>
+          <a href="#" class="social-link">YOUTUBE ↗</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal Window -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card brutalist-card">
+      <div class="card-top-bar">
+        <span class="bar-title" id="modal-title">PROJECT_DETAILS.TXT</span>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-inner" id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="brutalist-footer">
+    <div class="footer-content">
+
+      <span>STATUS: <strong class="txt-yellow">OPEN FOR COMMISSIONS</strong></span>
+      <span>TIME: <strong id="live-clock">18:46</strong></span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
