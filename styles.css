@@ -21,11 +21,11 @@
   --gray-light: #cccccc;
 
   --font-heading: 'Josefin Sans', sans-serif;
-  --font-body: 'Pixelify Sans', 'Silkscreen', monospace;
-  --font-mono: 'Pixelify Sans', 'VT323', monospace;
-  --font-pixel: 'Pixelify Sans', 'Silkscreen', monospace;
-  --font-arcade: 'Silkscreen', 'Pixelify Sans', monospace;
-  --font-terminal: 'VT323', 'Pixelify Sans', monospace;
+  --font-body: 'Silkscreen', monospace;
+  --font-mono: 'Silkscreen', 'VT323', monospace;
+  --font-pixel: 'Silkscreen', monospace;
+  --font-arcade: 'Silkscreen', monospace;
+  --font-terminal: 'VT323', monospace;
 }
 
 /* Reset & Core Setup */
